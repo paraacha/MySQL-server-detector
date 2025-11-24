@@ -181,6 +181,7 @@ func checkMySQL(ip string, port string) {
 // MySQL packet header is 4 bytes: 3 bytes length (little-endian) + 1 byte sequence (sufficient for handshake).
 func readMySQLPacket(conn net.Conn) ([]byte, error) {
 	header := make([]byte, 4)
+	conn.SetReadDeadline(time.Now().Add(5 * time.Second)) // Hardcoded timeouts
 	if _, err := io.ReadFull(conn, header); err != nil {
 		return nil, fmt.Errorf("reading header: %w", err)
 	}
@@ -191,6 +192,7 @@ func readMySQLPacket(conn net.Conn) ([]byte, error) {
 	}
 
 	payload := make([]byte, length)
+	conn.SetReadDeadline(time.Now().Add(30 * time.Second)) // Hardcoded timeouts
 	if _, err := io.ReadFull(conn, payload); err != nil {
 		return nil, fmt.Errorf("reading payload: %w", err)
 	}
