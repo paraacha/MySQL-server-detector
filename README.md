@@ -31,4 +31,5 @@ With these set up, run:
 
 ## Todos
 
-1. The code currently supports any MySQL server, but has not been tested on really old versions (ProtocolV9, and 4.x etc.).  
+1. The code currently supports any MySQL server, but has not been tested on really old versions (ProtocolV9, and 4.x etc.).
+2. Avoid detecting other tools that rely on the same handshake protocol as MySQL server (e.g., MariaDB).
